@@ -1,0 +1,30 @@
+slice_name: Girls
+description: null
+certified_by: null
+certification_details: null
+viz_type: table
+params:
+  adhoc_filters:
+  - clause: WHERE
+    comparator: girl
+    expressionType: SIMPLE
+    operator: ==
+    subject: gender
+  compare_lag: '10'
+  compare_suffix: o10Y
+  granularity_sqla: ds
+  groupby:
+  - name
+  limit: '25'
+  markup_type: markdown
+  metrics:
+  - sum__num
+  row_limit: 50
+  time_range: '100 years ago : now'
+  timeseries_limit_metric: sum__num
+  viz_type: table
+query_context: null
+cache_timeout: null
+uuid: bd084667-c254-4332-82d1-4f6c0baa1b1e
+version: 1.0.0
+dataset_uuid: 4e4f93dc-4a5d-413a-ac88-b8263d0da4cc

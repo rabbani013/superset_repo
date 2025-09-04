@@ -55,21 +55,6 @@ position:
     - TAB-BCIJF4NvgQ
     - ROW-zhOlQLQnB
     type: CHART
-  CHART-aGfmWtliqA:
-    children: []
-    id: CHART-aGfmWtliqA
-    meta:
-      chartId: 72
-      height: 72
-      sliceName: Vaccine Candidates per Phase
-      uuid: 392f293e-0892-4316-bd41-c927b65606a4
-      width: 5
-    parents:
-    - ROOT_ID
-    - TABS-wUKya7eQ0Z
-    - TAB-BCIJF4NvgQ
-    - ROW-zhOlQLQnB
-    type: CHART
   CHART-dCUpAcPsji:
     children: []
     id: CHART-dCUpAcPsji
@@ -165,7 +150,6 @@ position:
   ROW-zhOlQLQnB:
     children:
     - CHART-RjD_ygqtwH
-    - CHART-aGfmWtliqA
     id: ROW-zhOlQLQnB
     meta:
       '0': ROOT_ID
@@ -228,23 +212,11 @@ metadata:
     Live attenuated virus: '#FDE380'
     COUNT(*): '#D1C6BC'
   chart_configuration:
-    '72':
-      id: 72
-      crossFilters:
-        scope: global
-        chartsInScope:
-        - 73
-        - 74
-        - 75
-        - 76
-        - 77
-        - 78
     '74':
       id: 74
       crossFilters:
         scope: global
         chartsInScope:
-        - 72
         - 73
         - 75
         - 76
@@ -255,7 +227,6 @@ metadata:
       crossFilters:
         scope: global
         chartsInScope:
-        - 72
         - 73
         - 74
         - 76
@@ -266,7 +237,6 @@ metadata:
       crossFilters:
         scope: global
         chartsInScope:
-        - 72
         - 73
         - 74
         - 75
@@ -277,7 +247,6 @@ metadata:
       crossFilters:
         scope: global
         chartsInScope:
-        - 72
         - 73
         - 74
         - 75
@@ -289,7 +258,6 @@ metadata:
       - ROOT_ID
       excluded: []
     chartsInScope:
-    - 72
     - 73
     - 74
     - 75

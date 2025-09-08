@@ -2,17 +2,16 @@ import os
 import requests
 import io
 import zipfile
-import subprocess
 
 # =============================
-# SCRIPT: IMPORT JSON DASHBOARDS TO PRODUCTION
+# SCRIPT: DIRECT IMPORT OF JSON DASHBOARDS TO PRODUCTION
 # =============================
 
 # --- CONFIGURATION ---
-PROD_URL = "https://5750dff529b5.ngrok-free.app"
+PROD_URL = "https://5750dff529b5.ngrok-free.app"  # Production Superset URL
 USERNAME = "admin"
 PASSWORD = "admin"
-JSON_DASHBOARDS_DIR = "./superset_exports/json_dashboards"  # Directory containing JSON dashboards
+JSON_DASHBOARDS_DIR = os.path.expanduser("~/superset_repo/superset_exports/json_dashboards")
 
 # --- HELPERS ---
 def login_superset(url, username, password):
@@ -39,70 +38,41 @@ def get_csrf_token(session, url):
         return None
     return resp.json().get("result")
 
-def create_zip_from_json(json_file_path):
-    """
-    Wraps a single JSON file in a zip buffer for Superset import.
-    """
+def create_zip_from_json(json_path):
+    """Wrap a single JSON file into a zip for import"""
     zip_buffer = io.BytesIO()
     with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
-        file_name = os.path.basename(json_file_path)
-        zip_file.write(json_file_path, file_name)
+        zip_file.write(json_path, os.path.basename(json_path))
     zip_buffer.seek(0)
     return zip_buffer
 
 def import_json_dashboard(session, url, json_file_path):
     print(f"⬆️ Importing JSON dashboard: {json_file_path}")
     zip_buffer = create_zip_from_json(json_file_path)
-    if not zip_buffer:
-        return False
 
     files = {
-        'formData': (os.path.basename(json_file_path).replace(".json", ".zip"), zip_buffer, 'application/zip'),
+        'formData': (os.path.basename(json_file_path) + ".zip", zip_buffer, 'application/zip'),
         'overwrite': (None, 'true')
     }
 
-    # Superset expects JSON inside a zip; use format=json
     resp = session.post(f"{url}/api/v1/dashboard/import/?format=json", files=files)
     if resp.status_code != 200:
         print(f"❌ Failed to import. Status: {resp.status_code}")
-        try:
-            print(f"Response: {resp.text}")
-        except Exception:
-            pass
+        print(f"Response: {resp.text}")
         return False
 
     print(f"✅ Successfully imported {os.path.basename(json_file_path)}")
     return True
 
-def find_changed_json_dashboards(root_dir):
-    """
-    Detects changed or untracked JSON dashboards via Git and returns a set of file paths.
-    """
-    changed_files = set()
-    try:
-        output = subprocess.check_output(["git", "status", "--porcelain"], cwd=root_dir, text=True)
-        for line in output.splitlines():
-            parts = line.strip().split()
-            if len(parts) < 2:
-                continue
-            file_path = parts[1]
-            if file_path.endswith(".json"):
-                abs_path = os.path.join(root_dir, file_path)
-                changed_files.add(abs_path)
-    except Exception as e:
-        print(f"❌ Git error: {e}")
-    return changed_files
-
 # --- MAIN EXECUTION ---
 if __name__ == "__main__":
-    print("--- Starting Production JSON Dashboard Import ---")
+    print("--- Starting Direct JSON Dashboard Import ---")
 
-    changed_dashboards = find_changed_json_dashboards(JSON_DASHBOARDS_DIR)
-    if not changed_dashboards:
-        print("✅ No JSON dashboard changes detected.")
+    # Find all JSON files in the folder
+    json_files = [os.path.join(JSON_DASHBOARDS_DIR, f) for f in os.listdir(JSON_DASHBOARDS_DIR) if f.endswith(".json")]
+    if not json_files:
+        print(f"❌ No JSON dashboards found in {JSON_DASHBOARDS_DIR}")
         exit()
-
-    print(f"Found {len(changed_dashboards)} changed dashboard(s).")
 
     session = login_superset(PROD_URL, USERNAME, PASSWORD)
     if not session:
@@ -113,7 +83,7 @@ if __name__ == "__main__":
         exit()
     session.headers.update({"X-CSRFToken": csrf})
 
-    for json_dashboard in changed_dashboards:
-        import_json_dashboard(session, PROD_URL, json_dashboard)
+    for json_file in json_files:
+        import_json_dashboard(session, PROD_URL, json_file)
 
-    print("--- Production JSON Dashboard Import Complete ---")
+    print("--- Direct JSON Dashboard Import Complete ---")

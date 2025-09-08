@@ -55,21 +55,6 @@ position:
     - TAB-BCIJF4NvgQ
     - ROW-zhOlQLQnB
     type: CHART
-  CHART-aGfmWtliqA:
-    children: []
-    id: CHART-aGfmWtliqA
-    meta:
-      chartId: 72
-      height: 72
-      sliceName: Vaccine Candidates per Phase
-      uuid: 392f293e-0892-4316-bd41-c927b65606a4
-      width: 5
-    parents:
-    - ROOT_ID
-    - TABS-wUKya7eQ0Z
-    - TAB-BCIJF4NvgQ
-    - ROW-zhOlQLQnB
-    type: CHART
   CHART-dCUpAcPsji:
     children: []
     id: CHART-dCUpAcPsji
@@ -212,7 +197,6 @@ position:
     children:
     - MARKDOWN-VjQQ5SFj5v
     - CHART-RjD_ygqtwH
-    - CHART-aGfmWtliqA
     id: ROW-zhOlQLQnB
     meta:
       '0': ROOT_ID
@@ -274,4 +258,124 @@ metadata:
     Unknown: '#EFA1AA'
     Live attenuated virus: '#FDE380'
     COUNT(*): '#D1C6BC'
+  chart_configuration:
+    '74':
+      id: 74
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 73
+        - 75
+        - 76
+        - 77
+        - 78
+    '75':
+      id: 75
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 73
+        - 74
+        - 76
+        - 77
+        - 78
+    '76':
+      id: 76
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 73
+        - 74
+        - 75
+        - 77
+        - 78
+    '78':
+      id: 78
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 73
+        - 74
+        - 75
+        - 76
+        - 77
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 73
+    - 74
+    - 75
+    - 76
+    - 77
+    - 78
+  color_scheme_domain:
+  - '#1FA8C9'
+  - '#454E7C'
+  - '#5AC189'
+  - '#FF7F44'
+  - '#666666'
+  - '#E04355'
+  - '#FCC700'
+  - '#A868B7'
+  - '#3CCCCB'
+  - '#A38F79'
+  - '#8FD3E4'
+  - '#A1A6BD'
+  - '#ACE1C4'
+  - '#FEC0A1'
+  - '#B2B2B2'
+  - '#EFA1AA'
+  - '#FDE380'
+  - '#D3B3DA'
+  - '#9EE5E5'
+  - '#D1C6BC'
+  map_label_colors:
+    count: '#1FA8C9'
+    Argentina: '#454E7C'
+    Australia: '#5AC189'
+    Bangladesh: '#FF7F44'
+    Belgium: '#666666'
+    Brazil: '#E04355'
+    Canada: '#FCC700'
+    Chile: '#A868B7'
+    China: '#3CCCCB'
+    Chinese Taipei: '#A38F79'
+    Cuba: '#8FD3E4'
+    Denmark: '#A1A6BD'
+    Egypt: '#ACE1C4'
+    Finland: '#FEC0A1'
+    France: '#B2B2B2'
+    Germany: '#EFA1AA'
+    Great Britain: '#FDE380'
+    India: '#D3B3DA'
+    Israel: '#9EE5E5'
+    Italy: '#D1C6BC'
+    Japan: '#D1C6BC'
+    Kazakhstan: '#454E7C'
+    Netherlands: '#5AC189'
+    Nigeria: '#FF7F44'
+    Peru: '#666666'
+    Romania: '#E04355'
+    Russia: '#FCC700'
+    Slovakia: '#A868B7'
+    Slovenia: '#3CCCCB'
+    South Korea: '#A38F79'
+    Spain: '#8FD3E4'
+    Sweden: '#A1A6BD'
+    Switzerland: '#ACE1C4'
+    Thailand: '#FEC0A1'
+    Turkey: '#B2B2B2'
+    United States: '#EFA1AA'
+    Vietnam: '#FDE380'
+  shared_label_colors:
+  - count
+  - 0. Pre-clinical
+  - 2. Phase II or Combined I/II
+  - 1. Phase I
+  - 3. Phase III
+  - 4. Authorized
+  cross_filters_enabled: true
 version: 1.0.0

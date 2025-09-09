@@ -1,4 +1,3 @@
-# package_dashboards.py
 import os
 from superset_utils import detect_changed_object_and_create_zip
 
@@ -8,6 +7,6 @@ if __name__ == "__main__":
     detect_changed_object_and_create_zip(
         REPO_ROOT,
         exports_dir="superset_exports/dashboards",
-        zips_dir="superset_exports/zips/dashboards",
+        zips_dir="superset_zips/dashboards",
         object_type="dashboards"
     )

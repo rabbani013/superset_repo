@@ -39,22 +39,6 @@ position:
     - TAB-BCIJF4NvgQ
     - ROW-dieUdkeUw
     type: CHART
-  CHART-RjD_ygqtwH:
-    children: []
-    id: CHART-RjD_ygqtwH
-    meta:
-      chartId: 76
-      height: 72
-      sliceName: Vaccine Candidates per Phase
-      sliceNameOverride: Vaccine Candidates per Phase
-      uuid: 30b73c65-85e7-455f-bb24-801bb0cdc670
-      width: 3
-    parents:
-    - ROOT_ID
-    - TABS-wUKya7eQ0Z
-    - TAB-BCIJF4NvgQ
-    - ROW-zhOlQLQnB
-    type: CHART
   CHART-dCUpAcPsji:
     children: []
     id: CHART-dCUpAcPsji
@@ -196,7 +180,6 @@ position:
   ROW-zhOlQLQnB:
     children:
     - MARKDOWN-VjQQ5SFj5v
-    - CHART-RjD_ygqtwH
     id: ROW-zhOlQLQnB
     meta:
       '0': ROOT_ID
@@ -266,7 +249,6 @@ metadata:
         chartsInScope:
         - 73
         - 75
-        - 76
         - 77
         - 78
     '75':
@@ -276,17 +258,6 @@ metadata:
         chartsInScope:
         - 73
         - 74
-        - 76
-        - 77
-        - 78
-    '76':
-      id: 76
-      crossFilters:
-        scope: global
-        chartsInScope:
-        - 73
-        - 74
-        - 75
         - 77
         - 78
     '78':
@@ -297,7 +268,6 @@ metadata:
         - 73
         - 74
         - 75
-        - 76
         - 77
   global_chart_configuration:
     scope:
@@ -308,7 +278,6 @@ metadata:
     - 73
     - 74
     - 75
-    - 76
     - 77
     - 78
   color_scheme_domain:

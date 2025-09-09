@@ -8,7 +8,7 @@ PROD_URL = "https://5750dff529b5.ngrok-free.app"  # Production Superset URL
 USERNAME = "admin"
 PASSWORD = "admin"
 
-ZIPS_DIR = "./superset_exports/zips"  # Folder containing dashboard zip files
+ZIPS_DIR = "./superset_imports/zips/dashboards/"  # Folder containing dashboard zip files
 
 # -------------------------------
 # HELPERS

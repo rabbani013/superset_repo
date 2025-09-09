@@ -1,10 +1,10 @@
 import os
-from utils import package_changed_objects
+from utils import detect_changed_object_and_create_zip
 
 REPO_ROOT = os.path.abspath(".")
 
 if __name__ == "__main__":
-    package_changed_objects(
+    detect_changed_object_and_create_zip(
         REPO_ROOT,
         exports_dir="superset_exports/charts",
         zips_dir="superset_imports/zips/charts",

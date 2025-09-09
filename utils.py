@@ -57,7 +57,7 @@ def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, objec
     Detects changed Superset objects (dashboards/charts), 
     and creates zip archives for each changed one.
     """
-    print(f"--- Packaging Changed {object_type.capitalize()} ---")
+    print(f"--- {object_type.capitalize()}'s Zipping Process Started ---")
 
     objects_root = os.path.join(repo_root, exports_dir)
     output_root = os.path.join(repo_root, zips_dir)
@@ -77,4 +77,4 @@ def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, objec
             if zip_file:
                 print(f"📦 Created zip: {zip_file}")
 
-    print(f"--- Packaging {object_type.capitalize()} Complete ---\n")
+    print(f"--- {object_type.capitalize()}'s Zipping Process Completed ---\n")

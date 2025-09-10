@@ -3,6 +3,7 @@ import requests
 import zipfile
 import io
 from urllib.parse import quote_plus
+from utils import login_superset
 
 # =============================
 # SCRIPT: EXPORT ALL SUPERSET CHARTS
@@ -17,26 +18,26 @@ OUTPUT_DIRECTORY = "./superset_exports/charts"  # Base directory for charts
 # Files that should not be overwritten if already exist
 IGNORE_FILES = ["metadata.yaml"]
 
-# --- HELPERS ---
-def login_superset(url, username, password):
-    print(f"🔑 Logging in to Superset at {url} as {username}")
-    session = requests.Session()
-    login_resp = session.post(f"{url}/api/v1/security/login", json={
-        "username": username,
-        "password": password,
-        "provider": "db",
-        "refresh": True
-    })
+# # --- HELPERS ---
+# def login_superset(url, username, password):
+#     print(f"🔑 Logging in to Superset at {url} as {username}")
+#     session = requests.Session()
+#     login_resp = session.post(f"{url}/api/v1/security/login", json={
+#         "username": username,
+#         "password": password,
+#         "provider": "db",
+#         "refresh": True
+#     })
 
-    if login_resp.status_code != 200:
-        print(f"❌ Login failed: {login_resp.status_code}")
-        print(f"Response: {login_resp.text}")
-        return None
+#     if login_resp.status_code != 200:
+#         print(f"❌ Login failed: {login_resp.status_code}")
+#         print(f"Response: {login_resp.text}")
+#         return None
         
-    token = login_resp.json()["access_token"]
-    session.headers.update({"Authorization": f"Bearer {token}"})
-    print("✅ Login successful")
-    return session
+#     token = login_resp.json()["access_token"]
+#     session.headers.update({"Authorization": f"Bearer {token}"})
+#     print("✅ Login successful")
+#     return session
 
 def get_all_charts(session, url):
     charts = []

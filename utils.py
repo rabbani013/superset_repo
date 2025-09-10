@@ -2,6 +2,7 @@
 import os
 import subprocess
 import zipfile
+import requests
 
 def find_changed_objects(repo_root, base_dir):
     """
@@ -78,3 +79,64 @@ def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, objec
                 print(f"📦 Created zip: {zip_file}")
 
     print(f"--- {object_type.capitalize()}'s Zipping Process Completed ---\n")
+
+def login_superset(url, username, password):
+    """Logs in to Superset and returns a session with the access token."""
+    session = requests.Session()
+    resp = session.post(f"{url}/api/v1/security/login", json={
+        "username": username,
+        "password": password,
+        "provider": "db",
+        "refresh": True
+    })
+    if resp.status_code != 200:
+        print(f"❌ Login failed: {resp.status_code} {resp.text}")
+        return None
+    token = resp.json()["access_token"]
+    session.headers.update({"Authorization": f"Bearer {token}"})
+    return session
+
+def get_csrf_token(session, url):
+    """Fetches CSRF token from Superset API."""
+    try:
+        resp = session.get(f"{url}/api/v1/security/csrf_token/")
+        resp.raise_for_status()
+        return resp.json().get("result")
+    except Exception as e:
+        print(f"❌ Failed to get CSRF token: {e}")
+        return None
+
+def import_zip(session, prod_url, zip_path, resource="dashboard"):
+    """
+    Imports a Superset object (dashboard/chart) zip file to Superset
+    and deletes the zip if import succeeds.
+    """
+    zip_name = os.path.basename(zip_path)
+    print(f"⬆️ Importing {zip_name} as {resource} ...")
+    
+    endpoint = f"{prod_url}/api/v1/{resource}/import/?format=json"
+
+    try:
+        with open(zip_path, 'rb') as f:
+            files = {
+                'formData': (zip_name, f, 'application/zip'),
+                'overwrite': (None, 'true')
+            }
+            resp = session.post(endpoint, files=files)
+        
+        if resp.status_code == 200:
+            print(f"✅ Successfully imported {zip_name}")
+            try:
+                os.remove(zip_path)
+                print(f"🗑️ Deleted zip file: {zip_name}")
+                return True, True
+            except Exception as e:
+                print(f"❌ Failed to delete zip file {zip_name}: {e}")
+                return True, False
+        else:
+            print(f"❌ Failed to import {zip_name}: {resp.status_code}")
+            print(resp.text)
+            return False, False
+    except Exception as e:
+        print(f"❌ Error importing {zip_name}: {e}")
+        return False, False

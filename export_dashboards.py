@@ -1,5 +1,5 @@
 import os
-import requests
+# import requests
 import zipfile
 import io
 from urllib.parse import quote_plus

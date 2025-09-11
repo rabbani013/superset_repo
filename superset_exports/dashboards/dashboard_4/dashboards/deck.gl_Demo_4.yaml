@@ -9,71 +9,71 @@ uuid: e929940d-a57b-4e2a-8b58-801c23bfa56f
 position:
   CHART-3afd9d70:
     meta:
-      chartId: 305
+      chartId: 344
       sliceName: Deck.gl Scatterplot
       width: 6
       height: 50
-      uuid: 479162a2-e1d4-471b-90d5-6224b8cc36db
+      uuid: 00ac4e28-652f-4eb3-9cf0-c153b1e924c4
     type: CHART
     id: CHART-3afd9d70
     children: []
   CHART-2ee7fa5e:
     meta:
-      chartId: 306
+      chartId: 345
       sliceName: Deck.gl Screen grid
       width: 6
       height: 50
-      uuid: 2884bb62-9e7b-43f3-86d8-62d0356c3f33
+      uuid: 2ee327ef-8ce4-4176-9f77-87a2139b6a73
     type: CHART
     id: CHART-2ee7fa5e
     children: []
   CHART-201f7715:
     meta:
-      chartId: 307
+      chartId: 346
       sliceName: Deck.gl Hexagons
       width: 6
       height: 50
-      uuid: 754dc0ec-cb6c-4f9a-888c-c50797311731
+      uuid: 492a792d-0150-4df9-a15c-725c610b4310
     type: CHART
     id: CHART-201f7715
     children: []
   CHART-d02f6c40:
     meta:
-      chartId: 308
+      chartId: 347
       sliceName: Deck.gl Grid
       width: 6
       height: 50
-      uuid: 0a80a5d3-2ae4-42bc-b37e-a3e8c171b475
+      uuid: aad54e25-91e2-42a4-82e3-360a35fa4451
     type: CHART
     id: CHART-d02f6c40
     children: []
   CHART-2673431d:
     meta:
-      chartId: 309
+      chartId: 348
       sliceName: Deck.gl Polygons
       width: 6
       height: 50
-      uuid: aadc7970-2ba3-4d74-843e-5c54f8a4ebef
+      uuid: 2350d6e6-1057-4add-ba1a-f2c15326620c
     type: CHART
     id: CHART-2673431d
     children: []
   CHART-85265a60:
     meta:
-      chartId: 310
+      chartId: 349
       sliceName: Deck.gl Arcs
       width: 6
       height: 50
-      uuid: dbeae41b-0257-494f-b51d-6d6d3e60fea9
+      uuid: 623a5301-aa6b-4a28-886e-cdd5914e82cc
     type: CHART
     id: CHART-85265a60
     children: []
   CHART-2b87513c:
     meta:
-      chartId: 311
+      chartId: 350
       sliceName: Deck.gl Path
       width: 6
       height: 50
-      uuid: d884cff8-bf6e-4920-864b-40a8296ae1a4
+      uuid: eb6d1f85-0fd3-4ce9-9fd8-35f6b0f0870c
     type: CHART
     id: CHART-2b87513c
     children: []

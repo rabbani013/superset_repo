@@ -39,6 +39,22 @@ position:
     - TAB-BCIJF4NvgQ
     - ROW-dieUdkeUw
     type: CHART
+  CHART-RjD_ygqtwH:
+    children: []
+    id: CHART-RjD_ygqtwH
+    meta:
+      chartId: 76
+      height: 72
+      sliceName: Vaccine Candidates per Phase
+      sliceNameOverride: Vaccine Candidates per Phase
+      uuid: 30b73c65-85e7-455f-bb24-801bb0cdc670
+      width: 3
+    parents:
+    - ROOT_ID
+    - TABS-wUKya7eQ0Z
+    - TAB-BCIJF4NvgQ
+    - ROW-zhOlQLQnB
+    type: CHART
   CHART-dCUpAcPsji:
     children: []
     id: CHART-dCUpAcPsji
@@ -180,6 +196,7 @@ position:
   ROW-zhOlQLQnB:
     children:
     - MARKDOWN-VjQQ5SFj5v
+    - CHART-RjD_ygqtwH
     id: ROW-zhOlQLQnB
     meta:
       '0': ROOT_ID
@@ -249,6 +266,7 @@ metadata:
         chartsInScope:
         - 73
         - 75
+        - 76
         - 77
         - 78
     '75':
@@ -258,6 +276,17 @@ metadata:
         chartsInScope:
         - 73
         - 74
+        - 76
+        - 77
+        - 78
+    '76':
+      id: 76
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 73
+        - 74
+        - 75
         - 77
         - 78
     '78':
@@ -268,6 +297,7 @@ metadata:
         - 73
         - 74
         - 75
+        - 76
         - 77
   global_chart_configuration:
     scope:
@@ -278,6 +308,7 @@ metadata:
     - 73
     - 74
     - 75
+    - 76
     - 77
     - 78
   color_scheme_domain:
@@ -322,29 +353,29 @@ metadata:
     India: '#D3B3DA'
     Israel: '#9EE5E5'
     Italy: '#D1C6BC'
-    Japan: '#D1C6BC'
-    Kazakhstan: '#454E7C'
-    Netherlands: '#5AC189'
-    Nigeria: '#FF7F44'
-    Peru: '#666666'
-    Romania: '#E04355'
-    Russia: '#FCC700'
-    Slovakia: '#A868B7'
-    Slovenia: '#3CCCCB'
-    South Korea: '#A38F79'
-    Spain: '#8FD3E4'
-    Sweden: '#A1A6BD'
-    Switzerland: '#ACE1C4'
-    Thailand: '#FEC0A1'
-    Turkey: '#B2B2B2'
-    United States: '#EFA1AA'
-    Vietnam: '#FDE380'
+    Japan: '#454E7C'
+    Kazakhstan: '#5AC189'
+    Netherlands: '#FF7F44'
+    Nigeria: '#666666'
+    Peru: '#E04355'
+    Romania: '#FCC700'
+    Russia: '#A868B7'
+    Slovakia: '#3CCCCB'
+    Slovenia: '#A38F79'
+    South Korea: '#8FD3E4'
+    Spain: '#A1A6BD'
+    Sweden: '#ACE1C4'
+    Switzerland: '#FEC0A1'
+    Thailand: '#B2B2B2'
+    Turkey: '#EFA1AA'
+    United States: '#FDE380'
+    Vietnam: '#D3B3DA'
   shared_label_colors:
-  - count
   - 0. Pre-clinical
   - 2. Phase II or Combined I/II
   - 1. Phase I
   - 3. Phase III
   - 4. Authorized
+  - count
   cross_filters_enabled: true
 version: 1.0.0

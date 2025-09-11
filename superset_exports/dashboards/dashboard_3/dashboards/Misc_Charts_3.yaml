@@ -11,10 +11,10 @@ position:
     children: []
     id: CHART-HJOYVMV0E7
     meta:
-      chartId: 303
+      chartId: 342
       height: 69
       sliceName: Mapbox Long/Lat
-      uuid: c28db9d6-b9f2-49d1-b573-cbf3802411b6
+      uuid: 0b6bf403-4606-41ad-98ee-699e4f907e44
       width: 4
     parents:
     - ROOT_ID
@@ -26,10 +26,10 @@ position:
     children: []
     id: CHART-S1WYNz4AVX
     meta:
-      chartId: 283
+      chartId: 322
       height: 69
       sliceName: Parallel Coordinates
-      uuid: a6d31011-4197-4714-8ece-b251888529e4
+      uuid: 99cbe032-6d84-4e82-ae23-1693aee1d7aa
       width: 4
     parents:
     - ROOT_ID
@@ -40,10 +40,10 @@ position:
     children: []
     id: CHART-rkgF4G4A4X
     meta:
-      chartId: 304
+      chartId: 343
       height: 69
       sliceName: Birth in France by department in 2016
-      uuid: dc5bc821-9bf6-4f64-b157-9f3762bcfe1b
+      uuid: 4b61465f-059b-4da3-823d-2eb8809b222c
       width: 4
     parents:
     - ROOT_ID

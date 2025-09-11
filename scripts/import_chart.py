@@ -1,9 +1,10 @@
 import os
 from utils.utils import login_superset, get_csrf_token, import_zip
 
-PROD_URL = "https://5750dff529b5.ngrok-free.app"
-USERNAME = "admin"
-PASSWORD = "admin"
+PROD_URL = os.environ.get("SUPERSET_PROD_URL")
+USERNAME = os.environ.get("SUPERSET_ADMIN_USER")
+PASSWORD = os.environ.get("SUPERSET_ADMIN_PASS")
+
 ZIPS_DIR = "./superset_imports/zips/charts/"
 
 if __name__ == "__main__":

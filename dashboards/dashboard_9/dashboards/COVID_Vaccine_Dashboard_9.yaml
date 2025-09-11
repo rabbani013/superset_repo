@@ -99,52 +99,6 @@ position:
     meta:
       text: COVID Vaccine Dashboard
     type: HEADER
-  MARKDOWN-VjQQ5SFj5v:
-    children: []
-    id: MARKDOWN-VjQQ5SFj5v
-    meta:
-      code: '# COVID-19 Vaccine Dashboard
-
-
-        Everywhere you look, you see negative news about COVID-19. This is to be expected;
-        it''''s been a brutal year and this disease is no joke. This dashboard hopes
-        to use visualization to inject some optimism about the coming return to normalcy
-        we enjoyed before 2020! There''''s lots to be optimistic about:
-
-
-        - the sheer volume of attempts to fund the R&D needed to produce and bring
-        an effective vaccine to market
-
-        - the large number of countries involved in at least one vaccine candidate
-        (and the diversity of economic status of these countries)
-
-        - the diversity of vaccine approaches taken
-
-        - the fact that 2 vaccines have already been approved (and a hundreds of thousands
-        of patients have already been vaccinated)
-
-
-        ### The Dataset
-
-
-        This dashboard is powered by data maintained by the Millken Institute ([link
-        to dataset](https://airtable.com/shrSAi6t5WFwqo3GM/tblEzPQS5fnc0FHYR/viwDBH7b6FjmIBX5x?blocks=bipZFzhJ7wHPv7x9z)).
-        We researched each vaccine candidate and added our own best guesses for the
-        country responsible for each vaccine effort.
-
-
-        _Note that this dataset was last updated on 07/2021_.
-
-
-        '
-      height: 72
-      width: 4
-    parents:
-    - ROOT_ID
-    - TABS-wUKya7eQ0Z
-    - TAB-BCIJF4NvgQ
-    - ROW-zhOlQLQnB
-    type: MARKDOWN
   ROOT_ID:
     children:
     - TABS-wUKya7eQ0Z
@@ -177,21 +131,8 @@ position:
     - TABS-wUKya7eQ0Z
     - TAB-BCIJF4NvgQ
     type: ROW
-  ROW-zhOlQLQnB:
-    children:
-    - MARKDOWN-VjQQ5SFj5v
-    id: ROW-zhOlQLQnB
-    meta:
-      '0': ROOT_ID
-      background: BACKGROUND_TRANSPARENT
-    parents:
-    - ROOT_ID
-    - TABS-wUKya7eQ0Z
-    - TAB-BCIJF4NvgQ
-    type: ROW
   TAB-BCIJF4NvgQ:
     children:
-    - ROW-zhOlQLQnB
     - ROW-xSeNAspgw
     - ROW-dieUdkeUw
     id: TAB-BCIJF4NvgQ

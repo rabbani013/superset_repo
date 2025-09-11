@@ -322,24 +322,29 @@ metadata:
     India: '#D3B3DA'
     Israel: '#9EE5E5'
     Italy: '#D1C6BC'
-    Japan: '#D1C6BC'
-    Kazakhstan: '#454E7C'
-    Netherlands: '#5AC189'
-    Nigeria: '#FF7F44'
-    Peru: '#666666'
-    Romania: '#E04355'
-    Russia: '#FCC700'
-    Slovakia: '#A868B7'
-    Slovenia: '#3CCCCB'
-    South Korea: '#A38F79'
-    Spain: '#8FD3E4'
-    Sweden: '#A1A6BD'
-    Switzerland: '#ACE1C4'
-    Thailand: '#FEC0A1'
-    Turkey: '#B2B2B2'
-    United States: '#EFA1AA'
-    Vietnam: '#FDE380'
+    Japan: '#454E7C'
+    Kazakhstan: '#5AC189'
+    Netherlands: '#FF7F44'
+    Nigeria: '#666666'
+    Peru: '#E04355'
+    Romania: '#FCC700'
+    Russia: '#A868B7'
+    Slovakia: '#3CCCCB'
+    Slovenia: '#A38F79'
+    South Korea: '#8FD3E4'
+    Spain: '#A1A6BD'
+    Sweden: '#ACE1C4'
+    Switzerland: '#FEC0A1'
+    Thailand: '#B2B2B2'
+    Turkey: '#EFA1AA'
+    United States: '#FDE380'
+    Vietnam: '#D3B3DA'
   shared_label_colors:
+  - 0. Pre-clinical
+  - 2. Phase II or Combined I/II
+  - 1. Phase I
+  - 3. Phase III
+  - 4. Authorized
   - count
   cross_filters_enabled: true
 version: 1.0.0

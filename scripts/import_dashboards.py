@@ -4,7 +4,7 @@ from utils.utils import login_superset, get_csrf_token, import_zip
 PROD_URL = "https://5750dff529b5.ngrok-free.app"
 USERNAME = "admin"
 PASSWORD = "admin"
-ZIPS_DIR = "./superset_imports/zips/dashboards/"
+ZIPS_DIR = "./.tmp_zips/dashboards/"
 
 if __name__ == "__main__":
     print("--- Starting Dashboard ZIP Import ---")

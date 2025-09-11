@@ -4,6 +4,10 @@ import subprocess
 import zipfile
 import requests
 
+# ------------------------------
+# Git / File Handling Functions
+# ------------------------------
+
 def find_changed_objects(repo_root, base_dir):
     """
     Uses Git to find which directories have changed inside base_dir.
@@ -16,19 +20,25 @@ def find_changed_objects(repo_root, base_dir):
             cwd=repo_root,
             text=True
         )
-        
+
+        abs_base_dir = os.path.abspath(base_dir)
+
         for line in git_status_output.splitlines():
             parts = line.strip().split()
             if len(parts) > 1:
                 file_path = parts[1]
-                if file_path.startswith(base_dir + "/"):
-                    path_parts = file_path.split(os.sep)
-                    if len(path_parts) >= 3:  # superset_exports/<type>/<object_x>/...
-                        obj_folder = path_parts[2]
-                        changed_dirs.add(obj_folder)
+                abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
+
+                # Check if the changed file is under the base directory
+                if abs_file_path.startswith(abs_base_dir + os.sep):
+                    # Get the top-level folder name under base_dir
+                    rel_path = os.path.relpath(abs_file_path, abs_base_dir)
+                    obj_folder = rel_path.split(os.sep)[0]
+                    changed_dirs.add(obj_folder)
+
     except Exception as e:
         print(f"❌ Git command failed: {e}")
-    
+
     return changed_dirs
 
 
@@ -50,6 +60,7 @@ def create_zip_from_dir(object_path, output_path):
                 # Keep dashboard_x/ or chart_x/ prefix in the zip
                 arcname = os.path.relpath(full_path, base_dir)
                 zip_file.write(full_path, arcname)
+
     return output_path
 
 
@@ -60,11 +71,11 @@ def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, objec
     """
     print(f"--- {object_type.capitalize()}'s Zipping Process Started ---")
 
-    objects_root = os.path.join(repo_root, exports_dir)
-    output_root = os.path.join(repo_root, zips_dir)
+    objects_root = exports_dir   # exports_dir should be absolute
+    output_root = zips_dir       # zips_dir should be absolute
     os.makedirs(output_root, exist_ok=True)
 
-    changed_objects = find_changed_objects(repo_root, exports_dir)
+    changed_objects = find_changed_objects(repo_root, objects_root)
 
     if not changed_objects:
         print(f"✅ No {object_type} changes detected.")
@@ -79,6 +90,11 @@ def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, objec
                 print(f"📦 Created zip: {zip_file}")
 
     print(f"--- {object_type.capitalize()}'s Zipping Process Completed ---\n")
+
+
+# ------------------------------
+# Superset API Functions
+# ------------------------------
 
 def login_superset(url, username, password):
     """Logs in to Superset and returns a session with the access token."""
@@ -96,6 +112,7 @@ def login_superset(url, username, password):
     session.headers.update({"Authorization": f"Bearer {token}"})
     return session
 
+
 def get_csrf_token(session, url):
     """Fetches CSRF token from Superset API."""
     try:
@@ -106,6 +123,7 @@ def get_csrf_token(session, url):
         print(f"❌ Failed to get CSRF token: {e}")
         return None
 
+
 def import_zip(session, prod_url, zip_path, resource="dashboard"):
     """
     Imports a Superset object (dashboard/chart) zip file to Superset
@@ -113,7 +131,7 @@ def import_zip(session, prod_url, zip_path, resource="dashboard"):
     """
     zip_name = os.path.basename(zip_path)
     print(f"⬆️ Importing {zip_name} as {resource} ...")
-    
+
     endpoint = f"{prod_url}/api/v1/{resource}/import/?format=json"
 
     try:
@@ -123,7 +141,7 @@ def import_zip(session, prod_url, zip_path, resource="dashboard"):
                 'overwrite': (None, 'true')
             }
             resp = session.post(endpoint, files=files)
-        
+
         if resp.status_code == 200:
             print(f"✅ Successfully imported {zip_name}")
             try:

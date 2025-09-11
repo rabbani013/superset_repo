@@ -1,0 +1,41 @@
+slice_name: Rabbani
+description: null
+certified_by: null
+certification_details: null
+viz_type: pie
+params:
+  datasource: 19__table
+  viz_type: pie
+  slice_id: 351
+  groupby:
+  - color
+  metric: count
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    expressionType: SIMPLE
+    operator: TEMPORAL_RANGE
+    subject: updated
+  row_limit: 100
+  sort_by_metric: true
+  color_scheme: supersetColors
+  show_labels_threshold: 5
+  show_legend: true
+  legendType: scroll
+  legendOrientation: top
+  label_type: key
+  number_format: SMART_NUMBER
+  date_format: smart_date
+  show_labels: true
+  labels_outside: true
+  outerRadius: 70
+  innerRadius: 30
+  extra_form_data: {}
+  dashboards: []
+query_context: '{"datasource":{"id":19,"type":"table"},"force":false,"queries":[{"filters":[{"col":"updated","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":["color"],"metrics":["count"],"orderby":[["count",false]],"annotation_layers":[],"row_limit":100,"series_limit":0,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"19__table","viz_type":"pie","slice_id":351,"groupby":["color"],"metric":"count","adhoc_filters":[{"clause":"WHERE","comparator":"No
+  filter","expressionType":"SIMPLE","operator":"TEMPORAL_RANGE","subject":"updated"}],"row_limit":100,"sort_by_metric":true,"color_scheme":"supersetColors","show_labels_threshold":5,"show_legend":true,"legendType":"scroll","legendOrientation":"top","label_type":"key","number_format":"SMART_NUMBER","date_format":"smart_date","show_labels":true,"labels_outside":true,"outerRadius":70,"innerRadius":30,"extra_form_data":{},"dashboards":[],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 5a949ab4-ff81-4699-86f8-6b225c99be4a
+version: 1.0.0
+dataset_uuid: 7195db6b-2d17-7619-b7c7-26b15378df8c

@@ -5,7 +5,7 @@ PROD_URL = os.environ.get("SUPERSET_PROD_URL")
 USERNAME = os.environ.get("SUPERSET_ADMIN_USER")
 PASSWORD = os.environ.get("SUPERSET_ADMIN_PASS")
 
-ZIPS_DIR = "./superset_imports/zips/charts/"
+ZIPS_DIR ="./.tmp_zips/charts/"
 
 if __name__ == "__main__":
     print("--- Starting Chart ZIP Import ---")

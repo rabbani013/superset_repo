@@ -150,3 +150,7 @@ dmypy.json
 */.DS_Store
 .user.yml
 state/manifest.json
+
+# temporady zip files
+.tmp_zips/
+*.zip

@@ -18,7 +18,7 @@ params:
   - count
   metricsLayout: COLUMNS
   adhoc_filters: []
-  row_limit: 10000
+  row_limit: 100
   order_desc: true
   aggregateFunction: Sum
   valueFormat: SMART_NUMBER
@@ -32,12 +32,12 @@ query_context: '{"datasource": {"id": 1, "type": "table"}, "force": false, "quer
   [{"filters": [], "extras": {"time_grain_sqla": "P1D", "having": "", "where": ""},
   "applied_time_extras": {}, "columns": ["is_employee", "is_corporate", "one_id"],
   "metrics": ["count"], "orderby": [["count", false]], "annotation_layers": [], "row_limit":
-  10000, "series_limit": 0, "order_desc": true, "url_params": {}, "custom_params":
+  100, "series_limit": 0, "order_desc": true, "url_params": {}, "custom_params":
   {}, "custom_form_data": {}}], "form_data": {"datasource": "1__table", "viz_type":
   "pivot_table_v2", "slice_id": 2, "groupbyColumns": ["is_employee", "is_corporate"],
   "groupbyRows": ["one_id"], "time_grain_sqla": "P1D", "temporal_columns_lookup":
   {}, "metrics": ["count"], "metricsLayout": "COLUMNS", "adhoc_filters": [], "row_limit":
-  10000, "order_desc": true, "aggregateFunction": "Sum", "valueFormat": "SMART_NUMBER",
+  100, "order_desc": true, "aggregateFunction": "Sum", "valueFormat": "SMART_NUMBER",
   "date_format": "smart_date", "rowOrder": "key_a_to_z", "colOrder": "key_a_to_z",
   "extra_form_data": {}, "dashboards": [], "force": false, "result_format": "json",
   "result_type": "full"}, "result_format": "json", "result_type": "full"}'

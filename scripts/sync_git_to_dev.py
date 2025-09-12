@@ -1,0 +1,62 @@
+import os
+from utils.utils import detect_changed_object_and_create_zip, login_superset, get_csrf_token, import_zip
+
+# =============================
+# CONFIGURATION
+# =============================
+DEV_URL = os.environ.get("SUPERSET_DEV_URL", "http://localhost:8090")
+USERNAME = os.environ.get("SUPERSET_ADMIN_USER", "admin")
+PASSWORD = os.environ.get("SUPERSET_ADMIN_PASS", "admin")
+
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+EXPORTS_DIR = os.path.join(REPO_ROOT, "superset_exports")   # repo folders
+ZIPS_DIR = os.path.join(REPO_ROOT, ".tmp_zips")             # zips temp
+
+# =============================
+# MAIN EXECUTION
+# =============================
+if __name__ == "__main__":
+    print("--- Git → Dev Sync Started ---")
+
+    # Step 1: Detect new/changed objects and create zips
+    resources = [
+        # "databases", 
+        "datasets", 
+        "charts", 
+        "dashboards"
+    ]
+
+    for resource in resources:
+        detect_changed_object_and_create_zip(
+            REPO_ROOT,
+            exports_dir=os.path.join(EXPORTS_DIR, resource),
+            zips_dir=os.path.join(ZIPS_DIR, resource),
+            object_type=resource
+        )
+
+    # Step 2: Login to Superset Dev
+    session = login_superset(DEV_URL, USERNAME, PASSWORD)
+    if not session:
+        exit()
+
+    csrf_token = get_csrf_token(session, DEV_URL)
+    if not csrf_token:
+        exit()
+    session.headers.update({"X-CSRFToken": csrf_token})
+
+    # Step 3: Import zips into Dev
+    for resource in resources:
+        resource_dir = os.path.join(ZIPS_DIR, resource)
+        if not os.path.exists(resource_dir):
+            continue
+
+        zip_files = [f for f in os.listdir(resource_dir) if f.endswith(".zip")]
+        if not zip_files:
+            print(f"✅ No {resource} zips found.")
+            continue
+
+        for zip_file in zip_files:
+            print(f"⬆️ Importing {resource}: {zip_file}")
+            import_zip(session, DEV_URL, os.path.join(resource_dir, zip_file), resource=resource)
+
+    print("--- Git → Dev Sync Complete ---")

@@ -74,5 +74,5 @@ metadata:
   shared_label_colors: []
   color_scheme_domain: []
   cross_filters_enabled: true
-  default_filters: '{}'
+  native_filter_configuration: []
 version: 1.0.0

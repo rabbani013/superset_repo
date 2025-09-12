@@ -8,38 +8,6 @@ import requests
 # Git / File Handling Functions
 # ------------------------------
 
-# def find_changed_objects(repo_root, base_dir):
-#     """
-#     Uses Git to find which directories have changed inside base_dir.
-#     Returns a set of unique directory names (e.g., dashboard_9, chart_42).
-#     """
-#     changed_dirs = set()
-#     try:
-#         git_status_output = subprocess.check_output(
-#             ["git", "status", "--porcelain"],
-#             cwd=repo_root,
-#             text=True
-#         )
-
-#         abs_base_dir = os.path.abspath(base_dir)
-
-#         for line in git_status_output.splitlines():
-#             parts = line.strip().split()
-#             if len(parts) > 1:
-#                 file_path = parts[1]
-#                 abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
-
-#                 # Check if the changed file is under the base directory
-#                 if abs_file_path.startswith(abs_base_dir + os.sep):
-#                     # Get the top-level folder name under base_dir
-#                     rel_path = os.path.relpath(abs_file_path, abs_base_dir)
-#                     obj_folder = rel_path.split(os.sep)[0]
-#                     changed_dirs.add(obj_folder)
-
-#     except Exception as e:
-#         print(f"❌ Git command failed: {e}")
-
-#     return changed_dirs
 def find_changed_objects(repo_root, base_dir):
     """
     Uses Git to find which directories have changed or are newly added inside base_dir.
@@ -88,6 +56,37 @@ def find_changed_objects(repo_root, base_dir):
     return changed_dirs
 
 
+def find_objects_changed_after_pull(repo_root, base_dir):
+    """
+    Uses Git to find which directories were newly added or changed
+    after a git pull (i.e., in the latest commit).
+    Returns a set of unique directory names (e.g., dashboard_9, chart_42).
+    """
+    changed_dirs = set()
+    try:
+        abs_base_dir = os.path.abspath(base_dir)
+
+        # Compare last commit (HEAD) with the previous one (HEAD~1)
+        git_diff_output = subprocess.check_output(
+            ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+            cwd=repo_root,
+            text=True
+        )
+
+        for file_path in git_diff_output.splitlines():
+            abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
+
+            if abs_file_path.startswith(abs_base_dir + os.sep):
+                rel_path = os.path.relpath(abs_file_path, abs_base_dir)
+                obj_folder = rel_path.split(os.sep)[0]
+                changed_dirs.add(obj_folder)
+
+    except Exception as e:
+        print(f"❌ Git command failed: {e}")
+
+    return changed_dirs
+
+
 
 def create_zip_from_dir(object_path, output_path):
     """
@@ -111,18 +110,59 @@ def create_zip_from_dir(object_path, output_path):
     return output_path
 
 
-def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, object_type):
+# def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, object_type):
+#     """
+#     Detects changed Superset objects (dashboards/charts), 
+#     and creates zip archives for each changed one.
+#     """
+#     print(f"--- {object_type.capitalize()}'s Zipping Process Started ---")
+
+#     objects_root = exports_dir   # exports_dir should be absolute
+#     output_root = zips_dir       # zips_dir should be absolute
+#     os.makedirs(output_root, exist_ok=True)
+
+#     changed_objects = find_changed_objects(repo_root, objects_root)
+
+#     if not changed_objects:
+#         print(f"✅ No {object_type} changes detected.")
+#     else:
+#         print(f"📝 Found {len(changed_objects)} changed {object_type}:")
+#         for obj in changed_objects:
+#             print(f"  - {obj}")
+#             object_path = os.path.join(objects_root, obj)
+#             output_zip = os.path.join(output_root, f"{obj}.zip")
+#             zip_file = create_zip_from_dir(object_path, output_zip)
+#             if zip_file:
+#                 print(f"📦 Created zip: {zip_file}")
+
+#     print(f"--- {object_type.capitalize()}'s Zipping Process Completed ---\n")
+
+def detect_changed_object_and_create_zip(
+    repo_root, exports_dir, zips_dir, object_type, workflow="local"
+):
     """
-    Detects changed Superset objects (dashboards/charts), 
-    and creates zip archives for each changed one.
+    Detects changed Superset objects (dashboards/charts) and creates zip archives.
+    
+    Args:
+        repo_root (str): Root of the Git repo.
+        exports_dir (str): Absolute path to Superset exports folder (dashboards/charts/datasets).
+        zips_dir (str): Absolute path to store generated zip files.
+        object_type (str): Type of object ("dashboards", "charts", "datasets", etc.)
+        workflow (str): "local" for local changes, "pull" for changes after git pull.
     """
     print(f"--- {object_type.capitalize()}'s Zipping Process Started ---")
 
-    objects_root = exports_dir   # exports_dir should be absolute
-    output_root = zips_dir       # zips_dir should be absolute
+    objects_root = exports_dir
+    output_root = zips_dir
     os.makedirs(output_root, exist_ok=True)
 
-    changed_objects = find_changed_objects(repo_root, objects_root)
+    # Decide which function to use based on workflow
+    if workflow == "pull":
+        # from utils.git_utils import find_objects_changed_after_pull
+        changed_objects = find_objects_changed_after_pull(repo_root, objects_root)
+    else:
+        # from utils.git_utils import find_changed_objects
+        changed_objects = find_changed_objects(repo_root, objects_root)
 
     if not changed_objects:
         print(f"✅ No {object_type} changes detected.")
@@ -137,6 +177,7 @@ def detect_changed_object_and_create_zip(repo_root, exports_dir, zips_dir, objec
                 print(f"📦 Created zip: {zip_file}")
 
     print(f"--- {object_type.capitalize()}'s Zipping Process Completed ---\n")
+
 
 
 # ------------------------------
@@ -180,6 +221,8 @@ def import_zip(session, prod_url, zip_path, resource="dashboard"):
     print(f"⬆️ Importing {zip_name} as {resource} ...")
 
     endpoint = f"{prod_url}/api/v1/{resource}/import/?format=json"
+
+    # http://localhost:8090/api/v1/charts/import/?format=json
 
     try:
         with open(zip_path, 'rb') as f:

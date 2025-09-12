@@ -24,11 +24,19 @@ if __name__ == "__main__":
 
     for object_type, folder_name in OBJECTS.items():
         print(f"--- Processing {object_type} ---")
+        # detect_changed_object_and_create_zip(
+        #     repo_root=REPO_ROOT,
+        #     exports_dir=os.path.join(EXPORTS_BASE_DIR, folder_name),
+        #     zips_dir=os.path.join(ZIPS_BASE_DIR, folder_name),
+        #     object_type=object_type
+        # )
         detect_changed_object_and_create_zip(
             repo_root=REPO_ROOT,
             exports_dir=os.path.join(EXPORTS_BASE_DIR, folder_name),
             zips_dir=os.path.join(ZIPS_BASE_DIR, folder_name),
-            object_type=object_type
+            object_type=object_type,
+            workflow="local"  # optional, default is "local"
         )
+
 
     print("\n--- Superset ZIP Creation Complete ---")

@@ -21,18 +21,21 @@ if __name__ == "__main__":
     # Step 1: Detect new/changed objects and create zips
     resources = [
         # "databases", 
-        "datasets", 
-        "charts", 
-        "dashboards"
+        # "datasets", 
+        "chart"
+        # , 
+        # "dashboards"
     ]
 
     for resource in resources:
         detect_changed_object_and_create_zip(
-            REPO_ROOT,
+            repo_root=REPO_ROOT,
             exports_dir=os.path.join(EXPORTS_DIR, resource),
             zips_dir=os.path.join(ZIPS_DIR, resource),
-            object_type=resource
+            object_type=resource,
+            workflow="pull"  # detect changes after git pull
         )
+
 
     # Step 2: Login to Superset Dev
     session = login_superset(DEV_URL, USERNAME, PASSWORD)

@@ -58,22 +58,22 @@ def find_changed_objects(repo_root, base_dir):
 
 def find_objects_changed_after_pull(repo_root, base_dir):
     """
-    Uses Git to find which directories were newly added or changed
-    after a git pull (i.e., in the latest commit).
-    Returns a set of unique directory names (e.g., dashboard_9, chart_42).
+    Detect directories newly added or changed after the last git pull.
     """
     changed_dirs = set()
     try:
         abs_base_dir = os.path.abspath(base_dir)
 
-        # Compare last commit (HEAD) with the previous one (HEAD~1)
+        # Get all files changed since the previous HEAD (before pull)
         git_diff_output = subprocess.check_output(
-            ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+            ["git", "log", "HEAD@{1}..HEAD", "--name-only", "--pretty=format:"],
             cwd=repo_root,
             text=True
         )
 
         for file_path in git_diff_output.splitlines():
+            if not file_path.strip():
+                continue
             abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
 
             if abs_file_path.startswith(abs_base_dir + os.sep):
@@ -83,6 +83,9 @@ def find_objects_changed_after_pull(repo_root, base_dir):
 
     except Exception as e:
         print(f"❌ Git command failed: {e}")
+
+    return changed_dirs
+
 
     return changed_dirs
 

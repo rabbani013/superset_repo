@@ -1,0 +1,78 @@
+dashboard_title: subscription_type
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: dd05372b-90a8-4f7e-b5d4-84055f7f5175
+position:
+  CHART-RcgvegbdSP4vd4FrIW3d1:
+    children: []
+    id: CHART-RcgvegbdSP4vd4FrIW3d1
+    meta:
+      chartId: 1
+      height: 50
+      sliceName: is_trialist
+      uuid: b214ea3b-9dbf-478d-86a5-9347829c04c9
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-fE4hMQZlfKiEUE0Uz_J6t
+    type: CHART
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-fE4hMQZlfKiEUE0Uz_J6t
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: subscription_type
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-fE4hMQZlfKiEUE0Uz_J6t:
+    children:
+    - CHART-RcgvegbdSP4vd4FrIW3d1
+    id: ROW-fE4hMQZlfKiEUE0Uz_J6t
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+metadata:
+  chart_configuration:
+    '1':
+      id: 1
+      crossFilters:
+        scope: global
+        chartsInScope: []
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 1
+  map_label_colors:
+    'false': '#1FA8C9'
+    'true': '#454E7C'
+  timed_refresh_immune_slices: []
+  expanded_slices: {}
+  refresh_frequency: 0
+  color_scheme: ''
+  label_colors: {}
+  shared_label_colors: []
+  color_scheme_domain: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+version: 1.0.0

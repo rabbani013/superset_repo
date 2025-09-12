@@ -1,0 +1,13 @@
+database_name: Google BigQuery
+sqlalchemy_uri: bigquery://nhst-test-329009/
+cache_timeout: null
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  allows_virtual_table_explore: true
+uuid: 17c04c44-3f3b-406a-bc9f-23bec1f6e894
+version: 1.0.0

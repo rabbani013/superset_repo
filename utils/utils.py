@@ -8,38 +8,85 @@ import requests
 # Git / File Handling Functions
 # ------------------------------
 
+# def find_changed_objects(repo_root, base_dir):
+#     """
+#     Uses Git to find which directories have changed inside base_dir.
+#     Returns a set of unique directory names (e.g., dashboard_9, chart_42).
+#     """
+#     changed_dirs = set()
+#     try:
+#         git_status_output = subprocess.check_output(
+#             ["git", "status", "--porcelain"],
+#             cwd=repo_root,
+#             text=True
+#         )
+
+#         abs_base_dir = os.path.abspath(base_dir)
+
+#         for line in git_status_output.splitlines():
+#             parts = line.strip().split()
+#             if len(parts) > 1:
+#                 file_path = parts[1]
+#                 abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
+
+#                 # Check if the changed file is under the base directory
+#                 if abs_file_path.startswith(abs_base_dir + os.sep):
+#                     # Get the top-level folder name under base_dir
+#                     rel_path = os.path.relpath(abs_file_path, abs_base_dir)
+#                     obj_folder = rel_path.split(os.sep)[0]
+#                     changed_dirs.add(obj_folder)
+
+#     except Exception as e:
+#         print(f"❌ Git command failed: {e}")
+
+#     return changed_dirs
 def find_changed_objects(repo_root, base_dir):
     """
-    Uses Git to find which directories have changed inside base_dir.
+    Uses Git to find which directories have changed or are newly added inside base_dir.
     Returns a set of unique directory names (e.g., dashboard_9, chart_42).
     """
     changed_dirs = set()
     try:
+        abs_base_dir = os.path.abspath(base_dir)
+
+        # 1. Get modified/changed files (staged or unstaged)
         git_status_output = subprocess.check_output(
             ["git", "status", "--porcelain"],
             cwd=repo_root,
             text=True
         )
 
-        abs_base_dir = os.path.abspath(base_dir)
-
         for line in git_status_output.splitlines():
             parts = line.strip().split()
             if len(parts) > 1:
-                file_path = parts[1]
+                file_path = parts[-1]  # last element is always the file path
                 abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
 
-                # Check if the changed file is under the base directory
                 if abs_file_path.startswith(abs_base_dir + os.sep):
-                    # Get the top-level folder name under base_dir
                     rel_path = os.path.relpath(abs_file_path, abs_base_dir)
                     obj_folder = rel_path.split(os.sep)[0]
                     changed_dirs.add(obj_folder)
+
+        # 2. Get untracked (new) files
+        git_untracked_output = subprocess.check_output(
+            ["git", "ls-files", "--others", "--exclude-standard"],
+            cwd=repo_root,
+            text=True
+        )
+
+        for file_path in git_untracked_output.splitlines():
+            abs_file_path = os.path.abspath(os.path.join(repo_root, file_path))
+
+            if abs_file_path.startswith(abs_base_dir + os.sep):
+                rel_path = os.path.relpath(abs_file_path, abs_base_dir)
+                obj_folder = rel_path.split(os.sep)[0]
+                changed_dirs.add(obj_folder)
 
     except Exception as e:
         print(f"❌ Git command failed: {e}")
 
     return changed_dirs
+
 
 
 def create_zip_from_dir(object_path, output_path):

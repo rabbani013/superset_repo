@@ -21,6 +21,20 @@ position:
     - GRID_ID
     - ROW-5KQ5vK-j2cPXu3oKx_Vzk
     type: CHART
+  CHART-agn-ADVi5ZGZJaNd0vorz:
+    children: []
+    id: CHART-agn-ADVi5ZGZJaNd0vorz
+    meta:
+      chartId: 1
+      height: 50
+      sliceName: is_trialist
+      uuid: b214ea3b-9dbf-478d-86a5-9347829c04c9
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-5KQ5vK-j2cPXu3oKx_Vzk
+    type: CHART
   DASHBOARD_VERSION_KEY: v2
   GRID_ID:
     children:
@@ -42,6 +56,7 @@ position:
   ROW-5KQ5vK-j2cPXu3oKx_Vzk:
     children:
     - CHART-9AG31vivWE5dEM2sC39fg
+    - CHART-agn-ADVi5ZGZJaNd0vorz
     id: ROW-5KQ5vK-j2cPXu3oKx_Vzk
     meta:
       background: BACKGROUND_TRANSPARENT
@@ -51,19 +66,29 @@ position:
     type: ROW
 metadata:
   chart_configuration:
+    '1':
+      id: 1
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 2
     '2':
       id: 2
       crossFilters:
         scope: global
-        chartsInScope: []
+        chartsInScope:
+        - 1
   global_chart_configuration:
     scope:
       rootPath:
       - ROOT_ID
       excluded: []
     chartsInScope:
+    - 1
     - 2
-  map_label_colors: {}
+  map_label_colors:
+    'false': '#1FA8C9'
+    'true': '#454E7C'
   color_scheme: ''
   refresh_frequency: 0
   color_scheme_domain: []

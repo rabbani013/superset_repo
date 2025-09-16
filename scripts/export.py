@@ -26,7 +26,10 @@ def get_superset_items(session, url, endpoint):
     items = []
     page = 0
     page_size = 100
-    print(f"📋 Fetching {endpoint} list from Superset...")
+    
+    print("\n===============")
+    print(f"\n📋 Fetching {endpoint} list from Superset...")
+    
     while True:
         resp = session.get(f"{url}/api/v1/{endpoint}/?q={{\"page\":{page},\"page_size\":{page_size}}}")
         if resp.status_code != 200:

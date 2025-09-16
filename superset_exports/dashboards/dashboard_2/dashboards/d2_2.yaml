@@ -97,5 +97,5 @@ metadata:
   shared_label_colors: []
   timed_refresh_immune_slices: []
   cross_filters_enabled: true
-  default_filters: '{}'
+  native_filter_configuration: []
 version: 1.0.0

@@ -7,6 +7,20 @@ certification_details: ''
 published: false
 uuid: dd05372b-90a8-4f7e-b5d4-84055f7f5175
 position:
+  CHART-C44Md9gBd42hvHxy136NE:
+    children: []
+    id: CHART-C44Md9gBd42hvHxy136NE
+    meta:
+      chartId: 4
+      height: 50
+      sliceName: total_kpi_2
+      uuid: f40ec7c1-af65-42b6-ab81-fde41bbedf9a
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-fE4hMQZlfKiEUE0Uz_J6t
+    type: CHART
   CHART-RcgvegbdSP4vd4FrIW3d1:
     children: []
     id: CHART-RcgvegbdSP4vd4FrIW3d1
@@ -15,6 +29,20 @@ position:
       height: 50
       sliceName: is_trialist
       uuid: b214ea3b-9dbf-478d-86a5-9347829c04c9
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-fE4hMQZlfKiEUE0Uz_J6t
+    type: CHART
+  CHART-SamfR2axue0LO9s-4ZtvV:
+    children: []
+    id: CHART-SamfR2axue0LO9s-4ZtvV
+    meta:
+      chartId: 2
+      height: 50
+      sliceName: test_table
+      uuid: 690a030f-3b99-4e3e-9813-fab7f227080e
       width: 4
     parents:
     - ROOT_ID
@@ -42,6 +70,8 @@ position:
   ROW-fE4hMQZlfKiEUE0Uz_J6t:
     children:
     - CHART-RcgvegbdSP4vd4FrIW3d1
+    - CHART-SamfR2axue0LO9s-4ZtvV
+    - CHART-C44Md9gBd42hvHxy136NE
     id: ROW-fE4hMQZlfKiEUE0Uz_J6t
     meta:
       background: BACKGROUND_TRANSPARENT
@@ -55,7 +85,16 @@ metadata:
       id: 1
       crossFilters:
         scope: global
-        chartsInScope: []
+        chartsInScope:
+        - 2
+        - 4
+    '2':
+      id: 2
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 1
+        - 4
   global_chart_configuration:
     scope:
       rootPath:
@@ -63,6 +102,8 @@ metadata:
       excluded: []
     chartsInScope:
     - 1
+    - 2
+    - 4
   map_label_colors:
     'false': '#1FA8C9'
     'true': '#454E7C'

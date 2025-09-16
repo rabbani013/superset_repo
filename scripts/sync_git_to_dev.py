@@ -1,4 +1,5 @@
 import os
+import subprocess
 from utils.utils import (
     detect_changed_object_and_create_zip,
     login_superset,
@@ -19,7 +20,7 @@ ZIPS_DIR = os.path.join(REPO_ROOT, ".tmp_zips")             # temporary folder f
 
 # Keep folder names plural, map to API singular names
 RESOURCE_API_MAP = {
-    "databases": "database",
+    # "databases": "database",
     "datasets": "dataset",
     "charts": "chart",
     "dashboards": "dashboard"
@@ -30,6 +31,15 @@ RESOURCE_API_MAP = {
 # =============================
 if __name__ == "__main__":
     print("--- Git → Dev Sync Started ---\n")
+
+    # Step 0: Pull latest changes from Git
+    try:
+        print("🔄 Running git pull ...")
+        subprocess.check_call(["git", "pull", "origin", "main"], cwd=REPO_ROOT)
+        print("✅ Git pull complete")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Git pull failed: {e}")
+        exit(1)
 
     # Step 1: Detect new/changed objects and create zips
     for folder_name in RESOURCE_API_MAP.keys():

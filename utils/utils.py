@@ -168,7 +168,7 @@ def detect_changed_object_and_create_zip(
         changed_objects = find_changed_objects(repo_root, objects_root)
 
     if not changed_objects:
-        print(f"✅ No {object_type} changes detected.")
+        print(f"🟠 No {object_type} changes detected.")
     else:
         print(f"📝 Found {len(changed_objects)} changed {object_type}:")
         for obj in changed_objects:

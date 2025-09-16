@@ -21,7 +21,7 @@ def import_zips_for_resource(session, url, resource_dir, resource_name):
 
     zip_files = [f for f in os.listdir(resource_dir) if f.endswith(".zip")]
     if not zip_files:
-        print(f"✅ No {resource_name} zips found.")
+        print(f"🟠 No {resource_name} zips found.")
         return
 
     for zip_file in zip_files:

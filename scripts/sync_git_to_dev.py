@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
         zip_files = [f for f in os.listdir(resource_dir) if f.endswith(".zip")]
         if not zip_files:
-            print(f"✅ No {folder_name} zips found.")
+            print(f"🟠 No {folder_name} zips found.")
             continue
 
         for zip_file in zip_files:

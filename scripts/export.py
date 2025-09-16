@@ -90,7 +90,7 @@ def export_item(session, url, endpoint, item_id, output_dir, item_name=None):
     if updated_files:
         print(f"✅ Updated {updated_files} file(s) for {display_name}")
     else:
-        print(f"ℹ️ No changes for {display_name}")
+        print(f"🟠 No changes for {display_name}")
     return True
 
 # =============================

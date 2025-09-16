@@ -20,7 +20,6 @@ ZIPS_DIR = os.path.join(REPO_ROOT, ".tmp_zips")             # temporary folder f
 
 # Keep folder names plural, map to API singular names
 RESOURCE_API_MAP = {
-    # "databases": "database",
     "datasets": "dataset",
     "charts": "chart",
     "dashboards": "dashboard"
@@ -30,7 +29,7 @@ RESOURCE_API_MAP = {
 # MAIN EXECUTION
 # =============================
 if __name__ == "__main__":
-    print("--- Git → Dev Sync Started ---\n")
+    print("🟢 Git → Dev Sync Started ---\n")
 
     # Step 0: Pull latest changes from Git
     try:
@@ -76,7 +75,7 @@ if __name__ == "__main__":
             print(f"⬆️ Importing {folder_name}: {zip_file}")
             import_zip(session, DEV_URL, os.path.join(resource_dir, zip_file), resource=api_resource_name)
 
-    print("\n--- Git → Dev Sync Complete ---")
+    print("\n✅ Git → Dev Sync Complete ---")
 
 
 

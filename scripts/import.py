@@ -4,7 +4,7 @@ from utils.utils import login_superset, get_csrf_token, import_zip
 # =============================
 # CONFIGURATION
 # =============================
-PROD_URL = os.environ.get("SUPERSET_PROD_URL", "http://localhost:8090")
+PROD_URL = os.environ.get("SUPERSET_PROD_URL", "https://5750dff529b5.ngrok-free.app/")
 USERNAME = os.environ.get("SUPERSET_ADMIN_USER", "admin")
 PASSWORD = os.environ.get("SUPERSET_ADMIN_PASS", "admin")
 

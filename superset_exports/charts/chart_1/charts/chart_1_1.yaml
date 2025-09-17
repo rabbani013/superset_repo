@@ -9,24 +9,27 @@ params:
   slice_id: 1
   metric: count
   adhoc_filters:
-  - expressionType: SIMPLE
-    subject: is_regular
-    operator: ==
-    operatorId: IS_TRUE
+  - clause: WHERE
     comparator: true
-    clause: WHERE
-    sqlExpression: null
+    datasourceWarning: false
+    expressionType: SIMPLE
+    filterOptionName: filter_od3ouaolk7o_w5dqm9kustp
     isExtra: false
     isNew: false
-    datasourceWarning: false
-    filterOptionName: filter_od3ouaolk7o_w5dqm9kustp
-  header_font_size: 0.4
-  subheader_font_size: 0.15
+    operator: ==
+    operatorId: IS_TRUE
+    sqlExpression: null
+    subject: is_regular
+  subheader: This is a test!
+  header_font_size: 0.2
+  subheader_font_size: 0.125
   y_axis_format: SMART_NUMBER
   time_format: smart_date
+  conditional_formatting: []
   extra_form_data: {}
   dashboards: []
-query_context: '{"datasource":{"id":1,"type":"table"},"force":false,"queries":[{"filters":[{"col":"is_regular","op":"==","val":true}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":["count"],"annotation_layers":[],"series_limit":0,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"1__table","viz_type":"big_number_total","slice_id":1,"metric":"count","adhoc_filters":[{"expressionType":"SIMPLE","subject":"is_regular","operator":"==","operatorId":"IS_TRUE","comparator":true,"clause":"WHERE","sqlExpression":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_od3ouaolk7o_w5dqm9kustp"}],"header_font_size":0.4,"subheader_font_size":0.15,"y_axis_format":"SMART_NUMBER","time_format":"smart_date","extra_form_data":{},"dashboards":[],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+query_context: '{"datasource":{"id":1,"type":"table"},"force":false,"queries":[{"filters":[{"col":"is_regular","op":"==","val":true}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":["count"],"annotation_layers":[],"series_limit":0,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"1__table","viz_type":"big_number_total","slice_id":1,"metric":"count","adhoc_filters":[{"clause":"WHERE","comparator":true,"datasourceWarning":false,"expressionType":"SIMPLE","filterOptionName":"filter_od3ouaolk7o_w5dqm9kustp","isExtra":false,"isNew":false,"operator":"==","operatorId":"IS_TRUE","sqlExpression":null,"subject":"is_regular"}],"subheader":"This
+  is a test!","header_font_size":0.2,"subheader_font_size":0.125,"y_axis_format":"SMART_NUMBER","time_format":"smart_date","conditional_formatting":[],"extra_form_data":{},"dashboards":[],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
 cache_timeout: null
 uuid: b9c6f894-7ed2-456c-8e43-670a1e6c0c0c
 version: 1.0.0

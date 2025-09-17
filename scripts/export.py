@@ -2,7 +2,7 @@ import os
 import zipfile
 import io
 from urllib.parse import quote_plus
-from utils.utils import login_superset
+from utils.utils import login_superset, normalize_yaml_content
 
 # =============================
 # SCRIPT: UNIVERSAL SUPERSET EXPORT
@@ -84,7 +84,14 @@ def export_item(session, url, endpoint, item_id, output_dir, item_name=None):
                 continue
 
             file_content = z.read(filename).decode('utf-8')
-            if not os.path.exists(file_path) or open(file_path).read() != file_content:
+            
+            # Normalize content for comparison to handle line break differences
+            normalized_new_content = normalize_yaml_content(file_content)
+            normalized_existing_content = ""
+            if os.path.exists(file_path):
+                normalized_existing_content = normalize_yaml_content(open(file_path).read())
+            
+            if not os.path.exists(file_path) or normalized_existing_content != normalized_new_content:
                 with open(file_path, 'w') as f:
                     f.write(file_content)
                 updated_files += 1

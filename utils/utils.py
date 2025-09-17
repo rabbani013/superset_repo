@@ -3,6 +3,8 @@ import os
 import subprocess
 import zipfile
 import requests
+import re
+import json
 
 # ------------------------------
 # Git / File Handling Functions
@@ -251,3 +253,135 @@ def import_zip(session, prod_url, zip_path, resource="dashboard"):
     except Exception as e:
         print(f"❌ Error importing {zip_name}: {e}")
         return False, False
+
+
+# ------------------------------
+# YAML Normalization Functions
+# ------------------------------
+
+def deep_sort_json(obj):
+    """Recursively sort all keys in a JSON object for consistent ordering"""
+    if isinstance(obj, dict):
+        return {k: deep_sort_json(v) for k, v in sorted(obj.items())}
+    elif isinstance(obj, list):
+        return [deep_sort_json(item) for item in obj]
+    else:
+        return obj
+
+
+def normalize_json_in_yaml(content):
+    """Normalize JSON formatting within YAML content, particularly for query_context fields"""
+    lines = content.splitlines()
+    normalized_lines = []
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i]
+        
+        # Check if this line starts a query_context field
+        if re.match(r'^\s*query_context:\s*\'?\{', line):
+            # Find the complete JSON string (may span multiple lines)
+            json_lines = [line]
+            
+            # Check if the JSON is complete on this single line
+            if re.search(r'\}\'?\s*$', line):
+                # JSON is complete on this line
+                pass
+            else:
+                # JSON spans multiple lines, collect them
+                i += 1
+                while i < len(lines):
+                    current_line = lines[i]
+                    json_lines.append(current_line)
+                    
+                    # Check if this line ends the JSON string
+                    if re.search(r'\}\'?\s*$', current_line):
+                        break
+                    i += 1
+            
+            # Join the JSON lines and extract the JSON part
+            json_text = '\n'.join(json_lines)
+            
+            # Extract the JSON string from the YAML line
+            match = re.match(r'^(\s*query_context:\s*\'?)(.*?)(\'?\s*)$', json_text, re.DOTALL)
+            if match:
+                prefix = match.group(1)
+                json_str = match.group(2)
+                suffix = match.group(3)
+                
+                # Clean up the JSON string - remove any trailing quotes that might be part of the JSON
+                if json_str.endswith("'}'"):
+                    json_str = json_str[:-2] + "}"
+                elif json_str.endswith("'}"):
+                    json_str = json_str[:-1] + "}"
+                
+                try:
+                    # Parse and reformat the JSON to ensure consistent formatting
+                    json_obj = json.loads(json_str)
+                    # Deep sort all keys recursively for consistent ordering
+                    json_obj = deep_sort_json(json_obj)
+                    # Use compact formatting for consistency
+                    normalized_json = json.dumps(json_obj, separators=(',', ':'), sort_keys=True)
+                    
+                    # Reconstruct the line with normalized JSON
+                    normalized_line = prefix + normalized_json + suffix
+                    normalized_lines.append(normalized_line)
+                except json.JSONDecodeError:
+                    # If JSON parsing fails, keep the original
+                    normalized_lines.extend(json_lines)
+            else:
+                # If regex doesn't match, keep the original
+                normalized_lines.extend(json_lines)
+        else:
+            normalized_lines.append(line)
+        
+        i += 1
+    
+    return '\n'.join(normalized_lines)
+
+
+def normalize_yaml_content(content):
+    """Normalize YAML content to handle line break differences and Superset field changes"""
+    if not content:
+        return content
+    
+    # Remove trailing whitespace from each line
+    lines = content.splitlines()
+    normalized_lines = [line.rstrip() for line in lines]
+    
+    # Remove lines that are default empty fields commonly added by Superset
+    fields_to_remove = [
+        r'^\s*annotation_layers:\s*\[\]\s*$',
+        r'^\s*adhoc_filters:\s*\[\]\s*$', 
+        r'^\s*dashboards:\s*\[\]\s*$',
+        r'^\s*extra_form_data:\s*\{\}\s*$'
+    ]
+    
+    filtered_lines = []
+    for line in normalized_lines:
+        should_remove = False
+        for pattern in fields_to_remove:
+            if re.match(pattern, line):
+                should_remove = True
+                break
+        if not should_remove:
+            filtered_lines.append(line)
+    
+    # Join lines and normalize line endings
+    normalized_content = '\n'.join(filtered_lines)
+    
+    # Normalize JSON formatting in query_context field
+    # This handles cases where Superset exports JSON in different formats (compact vs pretty-printed)
+    normalized_content = normalize_json_in_yaml(normalized_content)
+    
+    # Remove multiple consecutive empty lines (replace with single empty line)
+    normalized_content = re.sub(r'\n\s*\n\s*\n+', '\n\n', normalized_content)
+    
+    # Remove trailing empty lines (but keep one if the file had content)
+    normalized_content = normalized_content.rstrip('\n')
+    
+    # Ensure file ends with single newline if it had any content
+    if normalized_content:
+        normalized_content += '\n'
+    
+    return normalized_content
